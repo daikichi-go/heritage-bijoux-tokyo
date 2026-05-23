@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ご依頼の流れ | Héritage Bijoux Tokyo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ivory: #f8f4ef;
+      --charcoal: #1e1e1e;
+      --deep-navy: #1a2235;
+      --gold: #b8965a;
+      --gold-light: #d4af6e;
+      --gold-pale: #e8d7b4;
+      --white-warm: #fdfaf6;
+      --muted: #6e6460;
+      --border: rgba(184,150,90,0.2);
+      --serif: 'Cormorant Garamond', serif;
+      --sans-jp: 'Noto Sans JP', sans-serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--ivory); color: var(--charcoal); font-family: var(--sans-jp); font-weight: 300; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+    .reveal-delay-4 { transition-delay: 0.48s; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 52px;
+      background: rgba(248,244,239,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0.18em; color: var(--charcoal); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 1px; background: var(--charcoal); }
+
+    /* Hero */
+    .page-hero {
+      padding: 160px 52px 100px;
+      background: var(--white-warm);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-text {}
+    .hero-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 20px; }
+    .hero-title { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.6rem); font-weight: 300; font-style: italic; color: var(--deep-navy); line-height: 1.2; margin-bottom: 28px; }
+    .hero-body { font-size: 0.84rem; color: var(--muted); line-height: 2.2; margin-bottom: 36px; }
+    .hero-note {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 18px 20px; background: rgba(184,150,90,0.08);
+      border-left: 2px solid var(--gold);
+    }
+    .hero-note-text { font-size: 0.75rem; color: var(--muted); line-height: 1.9; }
+    .hero-img-wrap { position: relative; }
+    .hero-img-wrap img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+    .hero-img-accent {
+      position: absolute; bottom: -20px; left: -20px;
+      width: 120px; height: 120px;
+      border: 1px solid var(--gold); z-index: -1;
+    }
+
+    /* Steps Section */
+    .steps-section { padding: 120px 52px; max-width: 1200px; margin: 0 auto; }
+    .steps-header { text-align: center; margin-bottom: 88px; }
+    .steps-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 16px; }
+    .steps-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; font-style: italic; color: var(--deep-navy); }
+
+    .steps-timeline { position: relative; }
+    .steps-timeline::before {
+      content: ''; position: absolute;
+      left: 50%; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+      transform: translateX(-50%);
+    }
+
+    .step-item {
+      display: grid; grid-template-columns: 1fr 80px 1fr;
+      gap: 0; margin-bottom: 80px; align-items: center;
+    }
+    .step-item:last-child { margin-bottom: 0; }
+
+    .step-content {
+      padding: 40px 48px;
+      background: var(--white-warm);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .step-content::after {
+      content: ''; position: absolute; top: 50%; right: -12px;
+      width: 0; height: 0;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 12px solid var(--white-warm);
+      transform: translateY(-50%);
+    }
+    .step-item.right .step-content { order: 3; }
+    .step-item.right .step-content::after {
+      right: auto; left: -12px;
+      border-left: none;
+      border-right: 12px solid var(--white-warm);
+    }
+
+    .step-center { display: flex; flex-direction: column; align-items: center; gap: 0; z-index: 1; }
+    .step-num-wrap {
+      width: 56px; height: 56px;
+      border: 1px solid var(--gold); background: var(--ivory);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .step-num-wrap::before {
+      content: ''; position: absolute;
+      inset: 4px; border: 1px solid rgba(184,150,90,0.3);
+    }
+    .step-num { font-family: var(--serif); font-size: 1.1rem; color: var(--gold); font-style: italic; }
+
+    .step-empty { order: 1; }
+    .step-item.right .step-empty { order: 1; }
+
+    .step-icon { font-size: 2rem; margin-bottom: 16px; }
+    .step-tag { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: block; }
+    .step-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--deep-navy); margin-bottom: 4px; }
+    .step-name-jp { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 18px; display: block; }
+    .step-desc { font-size: 0.78rem; color: var(--muted); line-height: 2; }
+    .step-duration {
+      display: inline-block; margin-top: 16px;
+      padding: 4px 12px; background: rgba(184,150,90,0.1);
+      font-size: 0.62rem; letter-spacing: 0.12em; color: var(--gold);
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--deep-navy);
+      padding: 100px 52px;
+    }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .faq-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 16px; }
+    .faq-title { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; font-style: italic; color: var(--white-warm); margin-bottom: 56px; }
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid rgba(184,150,90,0.15); }
+    .faq-question {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0; background: none; border: none; cursor: pointer;
+      text-align: left; color: var(--white-warm);
+    }
+    .faq-q-text { font-size: 0.84rem; letter-spacing: 0.06em; line-height: 1.6; }
+    .faq-icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--gold); transition: transform 0.3s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 2.1; max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease-out), padding 0.4s; }
+    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 20px; }
+
+    /* CTA */
+    .cta-section { padding: 100px 52px; text-align: center; background: var(--ivory); }
+    .cta-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 16px; }
+    .cta-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; font-style: italic; color: var(--deep-navy); margin-bottom: 20px; }
+    .cta-sub { font-size: 0.82rem; color: var(--muted); line-height: 2; margin-bottom: 48px; }
+    .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .cta-btn-ig, .cta-btn-tiktok {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 36px; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: white; border: none; cursor: pointer; transition: opacity 0.3s;
+    }
+    .cta-btn-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .cta-btn-tiktok { background: #010101; }
+    .cta-btn-ig:hover, .cta-btn-tiktok:hover { opacity: 0.85; }
+    .cta-note { font-size: 0.7rem; color: var(--muted); margin-top: 24px; letter-spacing: 0.06em; }
+
+    /* Footer */
+    footer { background: var(--charcoal); padding: 48px 52px 32px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 28px; border-bottom: 1px solid rgba(184,150,90,0.15); margin-bottom: 24px; }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--white-warm); letter-spacing: 0.1em; }
+    .footer-nav { display: flex; gap: 28px; list-style: none; }
+    .footer-nav a { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); transition: color 0.3s; }
+    .footer-nav a:hover { color: var(--gold-light); }
+    .footer-copy { font-size: 0.58rem; color: rgba(255,255,255,0.18); letter-spacing: 0.1em; text-align: center; }
+
+    @media (max-width: 1024px) {
+      .steps-timeline::before { left: 28px; }
+      .step-item { grid-template-columns: 56px 1fr; gap: 24px; }
+      .step-item.right .step-content { order: 2; }
+      .step-content::after, .step-item.right .step-content::after { display: none; }
+      .step-empty { display: none; }
+      .step-center { order: 1; flex-direction: row; justify-content: flex-start; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .page-hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 40px; }
+      .hero-img-wrap { display: none; }
+      .steps-section { padding: 80px 24px; }
+      .step-content { padding: 28px 24px; }
+      .faq-section { padding: 72px 24px; }
+      .cta-section { padding: 72px 24px; }
+      footer { padding: 40px 24px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Héritage Bijoux Tokyo</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="flow.html" class="active">Order Flow</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero -->
+<div class="page-hero">
+  <div class="hero-text reveal">
+    <span class="hero-label">— How It Works</span>
+    <h1 class="hero-title">ご依頼から<br />お手元に届くまで。</h1>
+    <p class="hero-body">
+      Héritage Bijoux Tokyoでは、お客様一人ひとりの想いに寄り添い、丁寧にジュエリーを仕立てます。
+      フルオーダーからリメイクまで、初めての方でも安心してご依頼いただけるよう、流れをご説明します。
+    </p>
+    <div class="hero-note">
+      <span style="font-size:1.2rem; flex-shrink:0;">💬</span>
+      <p class="hero-note-text">まずはお気軽にInstagramまたはTikTok DMにてご相談ください。見積もりのみのご相談も歓迎しております。</p>
+    </div>
+  </div>
+  <div class="hero-img-wrap reveal reveal-delay-2">
+    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80" alt="職人の手仕事" />
+    <div class="hero-img-accent"></div>
+  </div>
+</div>
+
+<!-- Steps -->
+<section class="steps-section">
+  <div class="steps-header">
+    <span class="steps-label reveal">— Order Process</span>
+    <h2 class="steps-title reveal reveal-delay-1">5つのステップで<br /><em>理想のジュエリーへ。</em></h2>
+  </div>
+
+  <div class="steps-timeline">
+
+    <!-- Step 1 -->
+    <div class="step-item reveal">
+      <div class="step-content">
+        <span class="step-tag">Step 01</span>
+        <h3 class="step-name">Contact</h3>
+        <span class="step-name-jp">お問い合わせ</span>
+        <p class="step-desc">
+          InstagramまたはTikTok DMにて、ご希望の内容をお気軽にメッセージください。
+          「フルオーダーを検討している」「リメイクしたいジュエリーがある」など、どんな段階でも大歓迎です。
+        </p>
+        <span class="step-duration">📱 Instagram / TikTok DM</span>
+      </div>
+      <div class="step-center">
+        <div class="step-num-wrap"><span class="step-num">01</span></div>
+      </div>
+      <div class="step-empty"></div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-item right reveal">
+      <div class="step-empty"></div>
+      <div class="step-center">
+        <div class="step-num-wrap"><span class="step-num">02</span></div>
+      </div>
+      <div class="step-content">
+        <span class="step-tag">Step 02</span>
+        <h3 class="step-name">Hearing</h3>
+        <span class="step-name-jp">ヒアリング・ご要望確認</span>
+        <p class="step-desc">
+          DMまたはオンラインにて、詳しいご要望をお伺いします。
+          デザインの参考画像、使用する宝石、予算感、納期などをご共有ください。
+          リメイクの場合は、現在のジュエリーのお写真もご送付いただきます。
+        </p>
+        <span class="step-duration">📅 無料相談</span>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-item reveal">
+      <div class="step-content">
+        <span class="step-tag">Step 03</span>
+        <h3 class="step-name">Design & Estimate</h3>
+        <span class="step-name-jp">デザイン提案・お見積り</span>
+        <p class="step-desc">
+          ヒアリングをもとに、職人がデザインスケッチを作成してご提案します。
+          ご要望に合わせて修正も承ります。デザインにご納得いただいた後、正式なお見積りをご提示します。
+        </p>
+        <span class="step-duration">✏️ 通常1〜2週間</span>
+      </div>
+      <div class="step-center">
+        <div class="step-num-wrap"><span class="step-num">03</span></div>
+      </div>
+      <div class="step-empty"></div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-item right reveal">
+      <div class="step-empty"></div>
+      <div class="step-center">
+        <div class="step-num-wrap"><span class="step-num">04</span></div>
+      </div>
+      <div class="step-content">
+        <span class="step-tag">Step 04</span>
+        <h3 class="step-name">Payment & Crafting</h3>
+        <span class="step-name-jp">ご入金・制作開始</span>
+        <p class="step-desc">
+          デザインとお見積りにご了承いただいた後、ご入金をもって制作を開始します。
+          熟練の職人が一点一点、丁寧に手仕事で制作します。
+          制作中の進捗状況もご希望に応じてお知らせします。
+        </p>
+        <span class="step-duration">🔨 制作期間：4〜8週間程度</span>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step-item reveal">
+      <div class="step-content">
+        <span class="step-tag">Step 05</span>
+        <h3 class="step-name">Delivery</h3>
+        <span class="step-name-jp">完成・納品</span>
+        <p class="step-desc">
+          完成品を丁寧にチェックした後、専用のギフトボックスに入れてお届けします。
+          お受け取り後もアフターケア（クリーニング・サイズ調整・修理）を承りますので、末長くお付き合いください。
+        </p>
+        <span class="step-duration">📦 ヤマト宅急便にて発送</span>
+      </div>
+      <div class="step-center">
+        <div class="step-num-wrap"><span class="step-num">05</span></div>
+      </div>
+      <div class="step-empty"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <span class="faq-label reveal">— FAQ</span>
+    <h2 class="faq-title reveal reveal-delay-1">よくあるご質問</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">予算はどのくらい必要ですか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <p class="faq-answer">フルオーダーは素材・デザインにより異なりますが、リングで15万円〜、ネックレスで20万円〜を目安にお考えください。リメイクは既存の素材を活かすため、5万円〜承ることが可能です。まずはお気軽にご相談ください。</p>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-question">
+          <span class="faq-q-text">デザインのイメージがなくても大丈夫ですか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <p class="faq-answer">もちろん大丈夫です。「シンプルなものが好き」「普段使いできるもの」など、ざっくりとしたイメージからでもご提案が可能です。参考となる画像をSNSで集めてお送りいただくと、よりスムーズにご提案できます。</p>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-question">
+          <span class="faq-q-text">リメイクする宝石の状態が悪くても大丈夫ですか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <p class="faq-answer">まずはお写真をお送りください。石の状態や枠の状態を確認した上で、リメイク可能かどうかご判断いたします。多少の傷や汚れがある場合も、クリーニングや研磨で美しく仕上げることができる場合がほとんどです。</p>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-question">
+          <span class="faq-q-text">納期はどのくらいかかりますか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <p class="faq-answer">デザインのお打ち合わせから納品まで、通常6〜10週間程度お時間をいただいております。ご結婚式など特定の日程がある場合は、お早めにご相談いただくとスムーズです。</p>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">購入後のアフターケアはありますか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <p class="faq-answer">はい、ご購入後もクリーニング、サイズ調整、修理などのアフターケアを承っております。大切なジュエリーをいつまでも美しく保てるよう、末長くサポートいたします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <span class="cta-label reveal">— Get Started</span>
+  <h2 class="cta-title reveal reveal-delay-1">まずはご相談から。</h2>
+  <p class="cta-sub reveal reveal-delay-2">見積もりのみのご相談も大歓迎です。<br />お気軽にDMにてお声がけください。</p>
+  <div class="cta-btns reveal reveal-delay-3">
+    <a href="https://www.instagram.com/heritage_bijoux_tokyo/" target="_blank" rel="noopener" class="cta-btn-ig">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Instagram DM
+    </a>
+    <a href="https://www.tiktok.com/@heritage_bijoux_tokyo" target="_blank" rel="noopener" class="cta-btn-tiktok">
+      <svg width="14" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+      TikTok DM
+    </a>
+  </div>
+  <p class="cta-note reveal">通常2〜3営業日以内にご返信いたします</p>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">Héritage Bijoux Tokyo</span>
+    <ul class="footer-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="flow.html">Order Flow</a></li>
+    </ul>
+  </div>
+  <p class="footer-copy">© 2026 Héritage Bijoux Tokyo. All rights reserved.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
