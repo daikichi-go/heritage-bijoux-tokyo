@@ -6,210 +6,391 @@
   <title>Shop | Héritage Bijoux Tokyo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ivory: #f8f4ef;
-      --charcoal: #1e1e1e;
-      --deep-navy: #1a2235;
-      --gold: #b8965a;
-      --gold-light: #d4af6e;
-      --white-warm: #fdfaf6;
-      --muted: #6e6460;
-      --border: rgba(184,150,90,0.2);
-      --serif: 'Cormorant Garamond', serif;
-      --sans-jp: 'Noto Sans JP', sans-serif;
-      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --shikkui: #f2ede6;
+      --washi: #e8e0d4;
+      --sumi: #1a1714;
+      --tetsu: #2d2926;
+      --kincha: #b8895a;
+      --kogane: #c9a96e;
+      --hakukin: #e8dcc8;
+      --muted: #7a7168;
+      --border-wa: rgba(184,137,90,0.22);
+      --serif-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
+      --serif-en: 'Cormorant Garamond', serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--ivory); color: var(--charcoal); font-family: var(--sans-jp); font-weight: 300; }
+    body { background: var(--shikkui); color: var(--sumi); font-family: var(--serif-jp); font-weight: 400; line-height: 1.9; }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    }
     img { display: block; max-width: 100%; }
     a { text-decoration: none; color: inherit; }
 
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
 
-    /* Nav */
+    /* ─── Nav ─── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 52px;
-      background: rgba(248,244,239,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      padding: 18px 52px;
+      background: rgba(242,237,230,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-wa);
     }
-    .nav-logo { font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0.18em; color: var(--charcoal); }
+    .nav-logo { font-family: var(--serif-en); font-size: 1rem; letter-spacing: 0.18em; color: var(--sumi); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); transition: color 0.3s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
-    .nav-hamburger span { display: block; width: 24px; height: 1px; background: var(--charcoal); }
-
-    /* Page Hero */
-    .page-hero {
-      padding: 160px 52px 80px;
-      text-align: center;
-      background: var(--white-warm);
-      border-bottom: 1px solid var(--border);
+    .nav-links a { font-family: var(--serif-jp); font-size: 0.65rem; letter-spacing: 0.22em; color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--kincha); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .cart-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--serif-jp); font-size: 0.65rem; letter-spacing: 0.15em;
+      color: var(--sumi); background: none; border: 1px solid var(--border-wa);
+      padding: 8px 16px; cursor: pointer; transition: all 0.3s; position: relative;
     }
-    .page-hero-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 16px; }
-    .page-hero-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--deep-navy); margin-bottom: 16px; }
-    .page-hero-sub { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.1em; max-width: 500px; margin: 0 auto; line-height: 2; }
+    .cart-btn:hover { border-color: var(--kincha); color: var(--kincha); }
+    .cart-count {
+      position: absolute; top: -6px; right: -6px;
+      width: 18px; height: 18px; background: var(--kincha);
+      color: white; font-size: 0.55rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: sans-serif;
+    }
+    .cart-count.hidden { display: none; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1px; background: var(--sumi); }
 
-    /* Filter Bar */
+    /* ─── Page Hero ─── */
+    .page-hero {
+      padding: 140px 52px 72px; text-align: center;
+      background: var(--sumi); position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '商'; position: absolute; right: -0.05em; top: -0.1em;
+      font-family: var(--serif-jp); font-size: 28vw; font-weight: 600;
+      color: rgba(184,137,90,0.05); line-height: 1; pointer-events: none;
+    }
+    .page-hero-label { font-family: var(--serif-jp); font-size: 0.6rem; letter-spacing: 0.4em; color: var(--kincha); display: block; margin-bottom: 14px; }
+    .page-hero-title { font-family: var(--serif-en); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--shikkui); margin-bottom: 10px; }
+    .page-hero-title-jp { font-family: var(--serif-jp); font-size: 0.8rem; letter-spacing: 0.4em; color: rgba(232,224,212,0.5); }
+
+    /* ─── Filter ─── */
     .filter-bar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 52px;
-      background: var(--ivory);
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap; gap: 16px;
+      padding: 24px 52px; background: var(--washi);
+      border-bottom: 1px solid var(--border-wa); flex-wrap: wrap; gap: 14px;
     }
-    .filter-tabs { display: flex; gap: 4px; }
+    .filter-tabs { display: flex; gap: 2px; }
     .filter-tab {
-      padding: 8px 20px; font-size: 0.65rem; letter-spacing: 0.2em;
-      text-transform: uppercase; border: 1px solid var(--border);
-      background: none; color: var(--muted); cursor: pointer;
-      transition: all 0.3s;
+      padding: 8px 20px; font-family: var(--serif-jp); font-size: 0.62rem;
+      letter-spacing: 0.2em; border: 1px solid var(--border-wa);
+      background: none; color: var(--muted); cursor: pointer; transition: all 0.3s;
     }
-    .filter-tab.active, .filter-tab:hover { background: var(--deep-navy); color: var(--white-warm); border-color: var(--deep-navy); }
-    .filter-count { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+    .filter-tab.active, .filter-tab:hover { background: var(--sumi); color: var(--shikkui); border-color: var(--sumi); }
+    .filter-count { font-family: var(--serif-jp); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
 
-    /* Grid */
+    /* ─── Shop Grid ─── */
     .shop-section { padding: 60px 52px 120px; max-width: 1400px; margin: 0 auto; }
-    .shop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .shop-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2px; background: var(--border-wa);
+    }
+    .shop-grid:empty { background: none; }
     .shop-grid:empty::after {
-      content: '商品を準備中です。'; grid-column: 1/-1;
-      text-align: center; color: var(--muted); font-size: 0.85rem;
-      letter-spacing: 0.1em; padding: 80px 0;
+      content: '商品を準備中です。'; display: block;
+      text-align: center; color: var(--muted); font-size: 0.82rem;
+      letter-spacing: 0.12em; padding: 80px 0;
     }
 
-    /* Product Card */
-    .product-card { background: var(--white-warm); overflow: hidden; transition: box-shadow 0.4s; }
-    .product-card:hover { box-shadow: 0 12px 48px rgba(26,34,53,0.1); }
-    .product-card:nth-child(3n+2) { margin-top: 32px; }
+    /* ─── Product Card ─── */
+    .product-card {
+      background: var(--shikkui); overflow: hidden; cursor: pointer;
+      transition: transform 0.4s var(--ease);
+    }
+    .product-card:nth-child(even) { background: var(--washi); }
+    .product-card:hover { transform: translateY(-4px); }
 
     .product-img-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; }
-    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease-out); }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); filter: sepia(0.05); }
     .product-card:hover .product-img-wrap img { transform: scale(1.06); }
 
     .product-badge {
-      position: absolute; top: 16px; left: 16px;
-      background: var(--deep-navy); color: var(--white-warm);
-      font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 5px 10px;
+      position: absolute; top: 12px; left: 12px;
+      background: var(--sumi); color: var(--kogane);
+      font-family: var(--serif-jp); font-size: 0.52rem; letter-spacing: 0.2em;
+      padding: 4px 10px;
     }
-    .product-badge.new { background: var(--gold); }
 
     .product-overlay {
-      position: absolute; inset: 0;
-      background: rgba(26,34,53,0);
-      display: flex; align-items: flex-end; justify-content: center;
-      padding-bottom: 24px;
+      position: absolute; inset: 0; background: rgba(26,23,20,0);
+      display: flex; align-items: center; justify-content: center;
       transition: background 0.4s;
     }
-    .product-card:hover .product-overlay { background: rgba(26,34,53,0.3); }
-    .product-inquiry-btn {
-      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--white-warm); border: 1px solid rgba(255,255,255,0.8);
-      padding: 10px 24px; opacity: 0; transform: translateY(8px);
-      transition: opacity 0.3s, transform 0.3s var(--ease-out), background 0.3s;
-      cursor: pointer; background: none;
+    .product-card:hover .product-overlay { background: rgba(26,23,20,0.4); }
+    .product-overlay-btn {
+      font-family: var(--serif-jp); font-size: 0.62rem; letter-spacing: 0.25em;
+      color: var(--shikkui); border: 1px solid rgba(232,220,200,0.7);
+      padding: 10px 22px; opacity: 0; transform: translateY(8px);
+      transition: opacity 0.35s, transform 0.35s var(--ease);
     }
-    .product-card:hover .product-inquiry-btn { opacity: 1; transform: translateY(0); }
-    .product-inquiry-btn:hover { background: var(--gold); border-color: var(--gold); }
+    .product-card:hover .product-overlay-btn { opacity: 1; transform: translateY(0); }
 
-    .product-info { padding: 20px 20px 28px; }
-    .product-category { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-    .product-name { font-family: var(--serif); font-size: 1.05rem; color: var(--deep-navy); margin-bottom: 3px; letter-spacing: 0.04em; }
-    .product-name-jp { font-size: 0.7rem; color: var(--muted); margin-bottom: 12px; }
-    .product-price-wrap { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
-    .product-price { font-family: var(--serif); font-size: 1.1rem; color: var(--charcoal); letter-spacing: 0.06em; }
-    .product-price-tax { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.08em; }
-    .product-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.9; margin-bottom: 18px; }
+    .product-info { padding: 18px 18px 24px; border-top: 1px solid var(--border-wa); }
+    .product-tag { font-family: var(--serif-jp); font-size: 0.55rem; letter-spacing: 0.25em; color: var(--kincha); margin-bottom: 5px; }
+    .product-name-en { font-family: var(--serif-en); font-size: 1rem; color: var(--sumi); margin-bottom: 2px; letter-spacing: 0.04em; }
+    .product-name-jp { font-family: var(--serif-jp); font-size: 0.66rem; color: var(--muted); margin-bottom: 10px; }
+    .product-price { font-family: var(--serif-en); font-size: 0.9rem; color: var(--tetsu); letter-spacing: 0.06em; }
 
-    .product-cta { display: flex; gap: 8px; }
-    .btn-ig {
-      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 10px 12px; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      color: white; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
-      border: none; cursor: pointer; transition: opacity 0.3s;
+    /* ─── 商品詳細モーダル ─── */
+    .detail-overlay {
+      position: fixed; inset: 0; background: rgba(10,8,6,0.75);
+      z-index: 300; opacity: 0; pointer-events: none;
+      transition: opacity 0.45s;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
     }
-    .btn-ig:hover { opacity: 0.85; }
-    .btn-tiktok {
-      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 10px 12px; background: var(--charcoal);
-      color: white; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+    .detail-overlay.open { opacity: 1; pointer-events: all; }
+
+    .detail-modal {
+      background: var(--shikkui); max-width: 1000px; width: 100%;
+      max-height: 92vh; overflow-y: auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      transform: translateY(24px); transition: transform 0.45s var(--ease);
+      position: relative;
+    }
+    .detail-overlay.open .detail-modal { transform: translateY(0); }
+
+    .detail-close {
+      position: absolute; top: 16px; right: 16px; z-index: 10;
+      width: 36px; height: 36px; background: var(--sumi);
+      color: var(--shikkui); border: none; cursor: pointer;
+      font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .detail-close:hover { background: var(--kincha); }
+
+    /* 画像ギャラリー */
+    .detail-gallery { position: sticky; top: 0; height: 92vh; display: flex; flex-direction: column; }
+    .detail-main-img {
+      flex: 1; overflow: hidden; background: var(--washi);
+    }
+    .detail-main-img img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+
+    .detail-thumbs {
+      display: flex; gap: 2px; padding: 2px;
+      background: var(--border-wa);
+    }
+    .detail-thumb {
+      flex: 1; aspect-ratio: 1; overflow: hidden; cursor: pointer;
+      opacity: 0.6; transition: opacity 0.3s;
+      border: 2px solid transparent;
+    }
+    .detail-thumb.active { opacity: 1; border-color: var(--kincha); }
+    .detail-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-thumb-placeholder {
+      width: 100%; height: 100%; background: var(--washi);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--kincha); font-size: 0.7rem;
+    }
+
+    /* 詳細情報 */
+    .detail-info { padding: 52px 44px; overflow-y: auto; }
+
+    .detail-label { font-family: var(--serif-jp); font-size: 0.58rem; letter-spacing: 0.4em; color: var(--kincha); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .detail-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--kincha), transparent); opacity: 0.4; }
+
+    .detail-name-en { font-family: var(--serif-en); font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 300; font-style: italic; color: var(--sumi); line-height: 1.2; margin-bottom: 6px; }
+    .detail-name-jp { font-family: var(--serif-jp); font-size: 0.75rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 28px; }
+
+    .detail-price-wrap { margin-bottom: 28px; }
+    .detail-price { font-family: var(--serif-en); font-size: 1.8rem; font-weight: 300; color: var(--sumi); display: block; }
+    .detail-price-tax { font-family: var(--serif-jp); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; }
+
+    .detail-divider { height: 1px; background: var(--border-wa); margin: 24px 0; }
+
+    /* スペック */
+    .detail-specs { margin-bottom: 28px; }
+    .detail-spec-item { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border-wa); }
+    .detail-spec-item:first-child { border-top: 1px solid var(--border-wa); }
+    .detail-spec-key { font-family: var(--serif-jp); font-size: 0.65rem; letter-spacing: 0.15em; color: var(--kincha); }
+    .detail-spec-val { font-family: var(--serif-jp); font-size: 0.75rem; color: var(--sumi); }
+
+    /* 説明 */
+    .detail-desc { font-family: var(--serif-jp); font-size: 0.78rem; line-height: 2.2; color: var(--muted); margin-bottom: 36px; }
+
+    /* カートボタン */
+    .btn-cart {
+      width: 100%; padding: 16px; margin-bottom: 10px;
+      background: var(--sumi); color: var(--kogane);
+      font-family: var(--serif-jp); font-size: 0.72rem; letter-spacing: 0.3em;
       border: none; cursor: pointer; transition: background 0.3s;
-    }
-    .btn-tiktok:hover { background: #010101; }
-
-    /* Modal */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(26,34,53,0.7);
-      z-index: 200; display: flex; align-items: center; justify-content: center;
-      padding: 20px; opacity: 0; pointer-events: none;
-      transition: opacity 0.4s;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal {
-      background: var(--white-warm); max-width: 480px; width: 100%;
-      padding: 48px 40px; position: relative;
-      transform: translateY(20px); transition: transform 0.4s var(--ease-out);
-    }
-    .modal-overlay.open .modal { transform: translateY(0); }
-    .modal-close {
-      position: absolute; top: 20px; right: 20px;
-      background: none; border: none; font-size: 1.4rem; color: var(--muted);
-      cursor: pointer; line-height: 1;
-    }
-    .modal-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
-    .modal-title { font-family: var(--serif); font-size: 1.6rem; color: var(--deep-navy); margin-bottom: 8px; font-style: italic; }
-    .modal-price { font-family: var(--serif); font-size: 1.1rem; color: var(--charcoal); margin-bottom: 24px; }
-    .modal-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
-    .modal-desc { font-size: 0.8rem; color: var(--muted); line-height: 2; margin-bottom: 32px; }
-    .modal-cta-title { font-size: 0.65rem; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 14px; }
-    .modal-btns { display: flex; flex-direction: column; gap: 10px; }
-    .modal-btn-ig, .modal-btn-tiktok {
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 14px; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-      border: none; cursor: pointer; color: white; transition: opacity 0.3s;
     }
-    .modal-btn-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-    .modal-btn-tiktok { background: #010101; }
-    .modal-btn-ig:hover, .modal-btn-tiktok:hover { opacity: 0.85; }
-    .modal-note { font-size: 0.65rem; color: rgba(110,100,96,0.6); text-align: center; margin-top: 16px; line-height: 1.8; }
+    .btn-cart:hover { background: var(--tetsu); }
+    .btn-cart:active { transform: scale(0.98); }
+
+    .btn-inquiry {
+      width: 100%; padding: 13px;
+      background: none; color: var(--kincha);
+      font-family: var(--serif-jp); font-size: 0.65rem; letter-spacing: 0.25em;
+      border: 1px solid var(--border-wa); cursor: pointer; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-inquiry:hover { border-color: var(--kincha); background: rgba(184,137,90,0.06); }
+
+    .detail-note { font-family: var(--serif-jp); font-size: 0.6rem; color: var(--muted); text-align: center; margin-top: 14px; line-height: 1.9; }
+
+    /* ─── カートサイドバー ─── */
+    .cart-overlay {
+      position: fixed; inset: 0; background: rgba(10,8,6,0.5);
+      z-index: 400; opacity: 0; pointer-events: none; transition: opacity 0.4s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-sidebar {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 420px;
+      background: var(--shikkui); z-index: 401;
+      transform: translateX(100%); transition: transform 0.45s var(--ease);
+      display: flex; flex-direction: column;
+      border-left: 1px solid var(--border-wa);
+    }
+    .cart-overlay.open .cart-sidebar { transform: translateX(0); }
+
+    .cart-header {
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid var(--border-wa);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .cart-title { font-family: var(--serif-jp); font-size: 0.8rem; letter-spacing: 0.3em; color: var(--sumi); }
+    .cart-title-en { font-family: var(--serif-en); font-size: 1.2rem; font-style: italic; color: var(--kincha); }
+    .cart-close-btn {
+      width: 32px; height: 32px; background: none; border: 1px solid var(--border-wa);
+      color: var(--muted); font-size: 1.1rem; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; transition: all 0.3s;
+    }
+    .cart-close-btn:hover { border-color: var(--kincha); color: var(--kincha); }
+
+    .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
+    .cart-empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .cart-empty-icon { font-size: 2.5rem; margin-bottom: 14px; opacity: 0.3; }
+    .cart-empty-text { font-family: var(--serif-jp); font-size: 0.75rem; letter-spacing: 0.1em; }
+
+    .cart-item {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      gap: 14px; align-items: start; padding: 16px 0;
+      border-bottom: 1px solid var(--border-wa);
+    }
+    .cart-item-img { width: 80px; height: 80px; object-fit: cover; }
+    .cart-item-img-placeholder { width: 80px; height: 80px; background: var(--washi); display: flex; align-items: center; justify-content: center; color: var(--kincha); font-size: 1.4rem; }
+    .cart-item-name { font-family: var(--serif-en); font-size: 0.9rem; color: var(--sumi); margin-bottom: 3px; }
+    .cart-item-sub { font-family: var(--serif-jp); font-size: 0.62rem; color: var(--muted); margin-bottom: 8px; }
+    .cart-item-price { font-family: var(--serif-en); font-size: 0.85rem; color: var(--sumi); }
+    .cart-item-remove {
+      background: none; border: none; color: var(--muted); cursor: pointer;
+      font-size: 1.1rem; padding: 4px; transition: color 0.3s; line-height: 1;
+    }
+    .cart-item-remove:hover { color: #8b3a2a; }
+
+    .cart-footer { padding: 20px 28px; border-top: 1px solid var(--border-wa); flex-shrink: 0; }
+    .cart-total { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
+    .cart-total-label { font-family: var(--serif-jp); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted); }
+    .cart-total-price { font-family: var(--serif-en); font-size: 1.4rem; color: var(--sumi); }
+
+    /* 決済ボタン */
+    .btn-checkout {
+      width: 100%; padding: 15px; margin-bottom: 8px;
+      background: var(--sumi); color: var(--kogane);
+      font-family: var(--serif-jp); font-size: 0.7rem; letter-spacing: 0.3em;
+      border: none; cursor: pointer; transition: background 0.3s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-checkout:hover { background: var(--tetsu); }
+
+    .btn-bank {
+      width: 100%; padding: 12px;
+      background: none; color: var(--kincha);
+      font-family: var(--serif-jp); font-size: 0.65rem; letter-spacing: 0.2em;
+      border: 1px solid var(--border-wa); cursor: pointer; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-bank:hover { border-color: var(--kincha); }
+
+    /* 銀行振込モーダル */
+    .bank-modal-overlay {
+      position: fixed; inset: 0; background: rgba(10,8,6,0.7);
+      z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.35s;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .bank-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .bank-modal {
+      background: var(--shikkui); max-width: 480px; width: 100%;
+      padding: 48px 40px; position: relative;
+      transform: translateY(16px); transition: transform 0.4s var(--ease);
+    }
+    .bank-modal-overlay.open .bank-modal { transform: translateY(0); }
+    .bank-modal-close {
+      position: absolute; top: 16px; right: 16px; background: none;
+      border: none; font-size: 1.3rem; color: var(--muted); cursor: pointer;
+    }
+    .bank-modal-title { font-family: var(--serif-jp); font-size: 0.65rem; letter-spacing: 0.4em; color: var(--kincha); margin-bottom: 20px; display: block; }
+    .bank-modal-heading { font-family: var(--serif-en); font-size: 1.6rem; font-style: italic; color: var(--sumi); margin-bottom: 28px; }
+    .bank-info { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; }
+    .bank-info-row { display: grid; grid-template-columns: 100px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border-wa); }
+    .bank-info-row:first-child { border-top: 1px solid var(--border-wa); }
+    .bank-info-key { font-family: var(--serif-jp); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--kincha); }
+    .bank-info-val { font-family: var(--serif-jp); font-size: 0.75rem; color: var(--sumi); font-weight: 500; }
+    .bank-modal-note { font-family: var(--serif-jp); font-size: 0.68rem; color: var(--muted); line-height: 2.1; background: rgba(184,137,90,0.06); padding: 16px; border-left: 2px solid var(--kincha); }
+
+    /* トースト */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--sumi); color: var(--kogane);
+      font-family: var(--serif-jp); font-size: 0.7rem; letter-spacing: 0.15em;
+      padding: 14px 28px; z-index: 600;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s, transform 0.35s var(--ease);
+      border-left: 2px solid var(--kincha);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: all; }
 
     /* Footer */
-    footer { background: var(--charcoal); padding: 48px 52px 32px; }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 28px; border-bottom: 1px solid rgba(184,150,90,0.15); margin-bottom: 24px; }
-    .footer-logo { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--white-warm); letter-spacing: 0.1em; }
+    footer { background: var(--sumi); padding: 48px 52px 32px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 28px; border-bottom: 1px solid rgba(184,137,90,0.15); margin-bottom: 24px; }
+    .footer-logo { font-family: var(--serif-en); font-size: 1.1rem; font-style: italic; color: var(--shikkui); }
     .footer-nav { display: flex; gap: 28px; list-style: none; }
-    .footer-nav a { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); transition: color 0.3s; }
-    .footer-nav a:hover { color: var(--gold-light); }
-    .footer-copy { font-size: 0.58rem; color: rgba(255,255,255,0.18); letter-spacing: 0.1em; text-align: center; }
+    .footer-nav a { font-family: var(--serif-jp); font-size: 0.6rem; letter-spacing: 0.18em; color: rgba(232,224,212,0.3); transition: color 0.3s; }
+    .footer-nav a:hover { color: var(--kincha); }
+    .footer-copy { font-family: var(--serif-jp); font-size: 0.55rem; color: rgba(232,224,212,0.15); text-align: center; }
 
-    @media (max-width: 1024px) {
-      .shop-grid { grid-template-columns: repeat(3, 1fr); }
-    }
+    /* Responsive */
+    @media (max-width: 1024px) { .shop-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
+      nav { padding: 14px 20px; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      .page-hero { padding: 120px 24px 60px; }
-      .filter-bar { padding: 20px 24px; }
-      .shop-section { padding: 40px 24px 80px; }
-      .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-      .product-card:nth-child(3n+2) { margin-top: 0; }
+      .page-hero { padding: 110px 24px 56px; }
+      .filter-bar { padding: 18px 24px; }
+      .shop-section { padding: 40px 20px 80px; }
+      .shop-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-modal { grid-template-columns: 1fr; max-height: 95vh; }
+      .detail-gallery { position: static; height: auto; }
+      .detail-main-img { height: 60vw; }
+      .detail-info { padding: 32px 24px; }
+      .cart-sidebar { width: 100%; }
       footer { padding: 40px 24px 24px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
-    @media (max-width: 480px) {
-      .shop-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 480px) { .shop-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -218,30 +399,39 @@
   <a href="index.html" class="nav-logo">Héritage Bijoux Tokyo</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="shop.html" class="active">Shop</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="flow.html">Order Flow</a></li>
+    <li><a href="shop.html" class="active">商品</a></li>
+    <li><a href="gallery.html">施工事例</a></li>
+    <li><a href="flow.html">ご依頼の流れ</a></li>
   </ul>
-  <button class="nav-hamburger" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartBtn" onclick="openCart()">
+      <svg width="16" height="14" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.97-1.67L23 6H6"/>
+        <circle cx="10" cy="20" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="19" cy="20" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      カート
+      <span class="cart-count hidden" id="cartCount">0</span>
+    </button>
+    <button class="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 
 <!-- Page Hero -->
 <div class="page-hero">
-  <span class="page-hero-label">— Online Shop</span>
-  <h1 class="page-hero-title">The Collection</h1>
-  <p class="page-hero-sub">時を超えて愛されるジュエリーをお届けします。<br />お問い合わせはInstagramまたはTikTok DMにて承ります。</p>
+  <span class="page-hero-label">— 商品一覧</span>
+  <h1 class="page-hero-title">Shop</h1>
+  <p class="page-hero-title-jp">時を越えて愛されるジュエリー</p>
 </div>
 
-<!-- Filter Bar -->
+<!-- Filter -->
 <div class="filter-bar">
   <div class="filter-tabs">
-    <button class="filter-tab active" data-filter="all">All</button>
-    <button class="filter-tab" data-filter="Ring">Ring</button>
-    <button class="filter-tab" data-filter="Necklace">Necklace</button>
-    <button class="filter-tab" data-filter="Earrings">Earrings</button>
-    <button class="filter-tab" data-filter="Bracelet">Bracelet</button>
+    <button class="filter-tab active" data-filter="all">すべて</button>
+    <button class="filter-tab" data-filter="Ring">リング</button>
+    <button class="filter-tab" data-filter="Necklace">ネックレス</button>
+    <button class="filter-tab" data-filter="Earrings">イヤリング</button>
+    <button class="filter-tab" data-filter="Bracelet">ブレスレット</button>
   </div>
   <span class="filter-count" id="filterCount"></span>
 </div>
@@ -251,128 +441,337 @@
   <div class="shop-grid" id="shopGrid"></div>
 </main>
 
-<!-- Inquiry Modal -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <button class="modal-close" id="modalClose">×</button>
-    <span class="modal-label">— お問い合わせ</span>
-    <h2 class="modal-title" id="modalName"></h2>
-    <p class="modal-price" id="modalPrice"></p>
-    <div class="modal-divider"></div>
-    <p class="modal-desc" id="modalDesc">こちらの商品についてのお問い合わせは、InstagramまたはTikTok DMにてお気軽にどうぞ。商品名をお伝えください。</p>
-    <p class="modal-cta-title">DMでお問い合わせ</p>
-    <div class="modal-btns">
-      <a href="https://www.instagram.com/heritage_bijoux_tokyo/" target="_blank" rel="noopener" class="modal-btn-ig">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        Instagram DM
-      </a>
-      <a href="https://www.tiktok.com/@heritage_bijoux_tokyo" target="_blank" rel="noopener" class="modal-btn-tiktok" id="tiktokBtn">
-        <svg width="14" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-        TikTok DM
-      </a>
+<!-- 商品詳細モーダル -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-modal">
+    <button class="detail-close" id="detailClose">×</button>
+
+    <!-- 画像ギャラリー -->
+    <div class="detail-gallery">
+      <div class="detail-main-img">
+        <img id="detailMainImg" src="" alt="" />
+      </div>
+      <div class="detail-thumbs" id="detailThumbs"></div>
     </div>
-    <p class="modal-note">※ DMにて商品名・ご希望をお知らせください。<br />通常2〜3営業日以内にご返信いたします。</p>
+
+    <!-- 商品情報 -->
+    <div class="detail-info">
+      <span class="detail-label" id="detailCategory"></span>
+      <h2 class="detail-name-en" id="detailNameEn"></h2>
+      <p class="detail-name-jp" id="detailNameJp"></p>
+
+      <div class="detail-price-wrap">
+        <span class="detail-price" id="detailPrice"></span>
+        <span class="detail-price-tax">税込</span>
+      </div>
+
+      <div class="detail-divider"></div>
+
+      <div class="detail-specs" id="detailSpecs"></div>
+
+      <p class="detail-desc" id="detailDesc"></p>
+
+      <button class="btn-cart" id="detailCartBtn">
+        <svg width="16" height="14" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.97-1.67L23 6H6"/>
+          <circle cx="10" cy="20" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="19" cy="20" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        カートに追加する
+      </button>
+      <button class="btn-inquiry" onclick="window.open('https://www.instagram.com/heritage_bijoux_tokyo/','_blank')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
+        Instagram でお問い合わせ
+      </button>
+      <p class="detail-note">※ 一点もの商品のため、売切れの場合はご了承ください。<br />ご不明点はInstagramまたはTikTok DMにてお気軽にどうぞ。</p>
+    </div>
   </div>
 </div>
+
+<!-- カートサイドバー -->
+<div class="cart-overlay" id="cartOverlay">
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <div>
+        <p class="cart-title">お買い物カート</p>
+        <p class="cart-title-en">Cart</p>
+      </div>
+      <button class="cart-close-btn" onclick="closeCart()">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span class="cart-total-label">合計（税込）</span>
+        <span class="cart-total-price" id="cartTotalPrice"></span>
+      </div>
+      <button class="btn-checkout" onclick="handleCheckout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+        クレジットカードで支払う
+      </button>
+      <button class="btn-bank" onclick="openBankModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        銀行振込で支払う
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 銀行振込モーダル -->
+<div class="bank-modal-overlay" id="bankModalOverlay">
+  <div class="bank-modal">
+    <button class="bank-modal-close" onclick="closeBankModal()">×</button>
+    <span class="bank-modal-title">— 銀行振込のご案内</span>
+    <h2 class="bank-modal-heading">Bank Transfer</h2>
+    <div class="bank-info">
+      <div class="bank-info-row">
+        <span class="bank-info-key">銀行名</span>
+        <span class="bank-info-val">※ 銀行名を入力してください</span>
+      </div>
+      <div class="bank-info-row">
+        <span class="bank-info-key">支店名</span>
+        <span class="bank-info-val">※ 支店名を入力してください</span>
+      </div>
+      <div class="bank-info-row">
+        <span class="bank-info-key">口座種別</span>
+        <span class="bank-info-val">普通</span>
+      </div>
+      <div class="bank-info-row">
+        <span class="bank-info-key">口座番号</span>
+        <span class="bank-info-val">※ 口座番号を入力してください</span>
+      </div>
+      <div class="bank-info-row">
+        <span class="bank-info-key">口座名義</span>
+        <span class="bank-info-val">カ）ゴー</span>
+      </div>
+    </div>
+    <div class="bank-modal-note">
+      ご注文後3営業日以内にお振込みください。<br />
+      振込手数料はお客様のご負担となります。<br />
+      振込確認後、発送のご案内をお送りします。
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
 <footer>
   <div class="footer-inner">
     <span class="footer-logo">Héritage Bijoux Tokyo</span>
     <ul class="footer-nav">
       <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="flow.html">Order Flow</a></li>
+      <li><a href="shop.html">商品</a></li>
+      <li><a href="gallery.html">施工事例</a></li>
+      <li><a href="flow.html">ご依頼の流れ</a></li>
     </ul>
   </div>
   <p class="footer-copy">© 2026 Héritage Bijoux Tokyo. All rights reserved.</p>
 </footer>
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
+  // ─── データ ───
+  let allItems = [];
+  let currentItem = null;
+  let cart = JSON.parse(localStorage.getItem('hbt_cart') || '[]');
 
-  // Load shop items from data.json
-  async function loadShop(filter = 'all') {
-    const grid = document.getElementById('shopGrid');
-    const countEl = document.getElementById('filterCount');
+  // ─── 初期化 ───
+  async function init() {
     try {
       const res = await fetch('data.json?t=' + Date.now());
-      const items = res.ok ? await res.json() : [];
-      const filtered = filter === 'all' ? items : items.filter(i => i.category === filter);
-      countEl.textContent = `${filtered.length} items`;
-
-      if (!filtered.length) { grid.innerHTML = ''; return; }
-
-      grid.innerHTML = filtered.map((item, i) => `
-        <div class="product-card reveal${i < 4 ? ' reveal-delay-' + i : ''}">
-          <div class="product-img-wrap">
-            ${item.image ? `<img src="${item.image}" alt="${item.name}" loading="lazy" />` : `<div style="width:100%;height:100%;background:#ede8e1;display:flex;align-items:center;justify-content:center;color:#b8965a;font-size:2rem;">💎</div>`}
-            ${i === 0 ? '<span class="product-badge new">New</span>' : ''}
-            <div class="product-overlay">
-              <button class="product-inquiry-btn" onclick="openModal(${item.id})">お問い合わせ</button>
-            </div>
-          </div>
-          <div class="product-info">
-            <p class="product-category">${item.category || ''}</p>
-            <h3 class="product-name">${item.name}</h3>
-            ${item.nameJp ? `<p class="product-name-jp">${item.nameJp}</p>` : ''}
-            <div class="product-price-wrap">
-              <span class="product-price">${item.price ? '¥ ' + Number(item.price).toLocaleString() : 'お問い合わせください'}</span>
-              ${item.price ? '<span class="product-price-tax">税込</span>' : ''}
-            </div>
-            ${item.desc ? `<p class="product-desc">${item.desc}</p>` : ''}
-            <div class="product-cta">
-              <a href="https://www.instagram.com/heritage_bijoux_tokyo/" target="_blank" rel="noopener" class="btn-ig">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
-                Instagram
-              </a>
-              <a href="https://www.tiktok.com/@heritage_bijoux_tokyo" target="_blank" rel="noopener" class="btn-tiktok">
-                <svg width="11" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-                TikTok
-              </a>
-            </div>
-          </div>
-        </div>
-      `).join('');
-
-      grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    } catch { grid.innerHTML = ''; }
+      allItems = res.ok ? await res.json() : [];
+    } catch { allItems = []; }
+    renderShop('all');
+    updateCartUI();
   }
 
-  // Filter
+  // ─── 商品グリッド描画 ───
+  function renderShop(filter) {
+    const grid = document.getElementById('shopGrid');
+    const countEl = document.getElementById('filterCount');
+    const filtered = filter === 'all' ? allItems : allItems.filter(i => i.category === filter);
+    countEl.textContent = filtered.length + '点';
+    if (!filtered.length) { grid.innerHTML = ''; return; }
+    grid.innerHTML = filtered.map((item, i) => `
+      <div class="product-card reveal" style="transition-delay:${i * 0.06}s" onclick="openDetail(${item.id})">
+        <div class="product-img-wrap">
+          ${item.image ? `<img src="${item.image}" alt="${item.name}" loading="lazy" />` : `<div style="width:100%;height:100%;min-height:240px;background:var(--washi);display:flex;align-items:center;justify-content:center;color:var(--kincha);font-size:2rem;">◆</div>`}
+          ${i === 0 ? '<span class="product-badge">New</span>' : ''}
+          <div class="product-overlay"><span class="product-overlay-btn">詳細を見る</span></div>
+        </div>
+        <div class="product-info">
+          <p class="product-tag">${item.category || ''}</p>
+          <h3 class="product-name-en">${item.name}</h3>
+          ${item.nameJp ? `<p class="product-name-jp">${item.nameJp}</p>` : ''}
+          <p class="product-price">${item.price ? '¥ ' + Number(item.price).toLocaleString() : 'お問い合わせください'}</p>
+        </div>
+      </div>
+    `).join('');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    grid.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
+
+  // ─── フィルター ───
   document.querySelectorAll('.filter-tab').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      loadShop(btn.dataset.filter);
+      renderShop(btn.dataset.filter);
     });
   });
 
-  // Modal
-  let currentItems = [];
-  async function openModal(id) {
-    try {
-      const res = await fetch('data.json');
-      currentItems = res.ok ? await res.json() : [];
-    } catch { currentItems = []; }
-    const item = currentItems.find(i => i.id === id);
+  // ─── 商品詳細 ───
+  function openDetail(id) {
+    const item = allItems.find(i => i.id === id);
     if (!item) return;
-    document.getElementById('modalName').textContent = item.name + (item.nameJp ? '　' + item.nameJp : '');
-    document.getElementById('modalPrice').textContent = item.price ? '¥ ' + Number(item.price).toLocaleString() + '（税込）' : 'お問い合わせください';
-    document.getElementById('modalOverlay').classList.add('open');
+    currentItem = item;
+
+    // メイン画像（最大5枚。今は1枚 + プレースホルダー）
+    const images = item.images || (item.image ? [item.image] : []);
+    while (images.length < 5) images.push(null);
+
+    const mainImg = document.getElementById('detailMainImg');
+    mainImg.src = images[0] || '';
+    mainImg.style.display = images[0] ? 'block' : 'none';
+
+    // サムネ
+    const thumbs = document.getElementById('detailThumbs');
+    thumbs.innerHTML = images.map((src, i) => `
+      <div class="detail-thumb ${i === 0 ? 'active' : ''}" onclick="switchImg('${src}', this)">
+        ${src
+          ? `<img src="${src}" alt="" loading="lazy" />`
+          : `<div class="detail-thumb-placeholder">${i + 1}</div>`}
+      </div>
+    `).join('');
+
+    // テキスト情報
+    document.getElementById('detailCategory').textContent = item.category || '';
+    document.getElementById('detailNameEn').textContent = item.name;
+    document.getElementById('detailNameJp').textContent = item.nameJp || '';
+    document.getElementById('detailPrice').textContent = item.price ? '¥ ' + Number(item.price).toLocaleString() : 'お問い合わせください';
+
+    // スペック
+    const specs = [];
+    if (item.material) specs.push(['素材', item.material]);
+    if (item.size)     specs.push(['サイズ', item.size]);
+    if (item.stone)    specs.push(['宝石', item.stone]);
+    if (item.category) specs.push(['カテゴリ', item.category]);
+
+    document.getElementById('detailSpecs').innerHTML = specs.map(([k, v]) => `
+      <div class="detail-spec-item">
+        <span class="detail-spec-key">${k}</span>
+        <span class="detail-spec-val">${v}</span>
+      </div>
+    `).join('');
+
+    document.getElementById('detailDesc').textContent = item.desc || '詳細はInstagramまたはTikTok DMにてお問い合わせください。';
+
+    // カートボタン
+    document.getElementById('detailCartBtn').onclick = () => addToCart(item);
+
+    document.getElementById('detailOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
-  document.getElementById('modalClose').addEventListener('click', () => {
-    document.getElementById('modalOverlay').classList.remove('open');
-  });
-  document.getElementById('modalOverlay').addEventListener('click', e => {
-    if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
-  });
+  function switchImg(src, el) {
+    if (!src) return;
+    document.getElementById('detailMainImg').src = src;
+    document.querySelectorAll('.detail-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
 
-  loadShop();
+  document.getElementById('detailClose').onclick = closeDetail;
+  document.getElementById('detailOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeDetail(); });
+  function closeDetail() {
+    document.getElementById('detailOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ─── カート ───
+  function addToCart(item) {
+    const existing = cart.find(c => c.id === item.id);
+    if (existing) {
+      showToast('すでにカートに入っています');
+      return;
+    }
+    cart.push({ id: item.id, name: item.name, nameJp: item.nameJp, price: item.price, image: item.image, category: item.category });
+    saveCart();
+    updateCartUI();
+    closeDetail();
+    openCart();
+    showToast('カートに追加しました');
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(c => c.id !== id);
+    saveCart(); updateCartUI(); renderCartItems();
+  }
+
+  function saveCart() { localStorage.setItem('hbt_cart', JSON.stringify(cart)); }
+
+  function updateCartUI() {
+    const count = cart.length;
+    const countEl = document.getElementById('cartCount');
+    countEl.textContent = count;
+    countEl.classList.toggle('hidden', count === 0);
+  }
+
+  function renderCartItems() {
+    const el = document.getElementById('cartItems');
+    const footer = document.getElementById('cartFooter');
+    if (!cart.length) {
+      el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">◆</div><p class="cart-empty-text">カートは空です</p></div>`;
+      footer.style.display = 'none';
+      return;
+    }
+    el.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        ${item.image
+          ? `<img class="cart-item-img" src="${item.image}" alt="${item.name}" />`
+          : `<div class="cart-item-img-placeholder">◆</div>`}
+        <div>
+          <p class="cart-item-name">${item.name}</p>
+          <p class="cart-item-sub">${item.nameJp || item.category || ''}</p>
+          <p class="cart-item-price">${item.price ? '¥ ' + Number(item.price).toLocaleString() : 'お問い合わせください'}</p>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">×</button>
+      </div>
+    `).join('');
+    const total = cart.reduce((sum, i) => sum + (Number(i.price) || 0), 0);
+    document.getElementById('cartTotalPrice').textContent = total ? '¥ ' + total.toLocaleString() : 'お問い合わせください';
+    footer.style.display = 'block';
+  }
+
+  function openCart() { document.getElementById('cartOverlay').classList.add('open'); renderCartItems(); }
+  function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); }
+  document.getElementById('cartOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeCart(); });
+  document.getElementById('cartBtn').onclick = openCart;
+
+  // ─── 決済 ───
+  function handleCheckout() {
+    showToast('クレジットカード決済は準備中です。銀行振込をご利用ください。');
+  }
+
+  // ─── 銀行振込 ───
+  function openBankModal() { document.getElementById('bankModalOverlay').classList.add('open'); }
+  function closeBankModal() { document.getElementById('bankModalOverlay').classList.remove('open'); }
+  document.getElementById('bankModalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeBankModal(); });
+
+  // ─── Toast ───
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // ─── Scroll reveal ───
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  init();
 </script>
 </body>
 </html>
